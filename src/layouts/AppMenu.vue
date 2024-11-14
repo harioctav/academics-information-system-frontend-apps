@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-
 import AppMenuItem from "@/layouts/AppMenuItem.vue";
 
 const model = ref([
@@ -8,31 +7,86 @@ const model = ref([
 		label: "Home",
 		items: [{ label: "Dashboard", icon: "pi pi-fw pi-home", to: "/" }],
 	},
-
 	{
-		label: "Pages",
-		icon: "pi pi-fw pi-briefcase",
-		to: "/pages",
+		label: "Academics",
+		icon: "pi pi-fw pi-beriefcase",
+		to: "/academics",
 		items: [
 			{
-				label: "Auth",
-				icon: "pi pi-fw pi-user",
+				label: "Academics",
+				icon: "pi pi-fw pi-graduation-cap",
 				items: [
 					{
-						label: "Login",
-						icon: "pi pi-fw pi-sign-in",
-						to: "/auth/login",
+						label: "Students",
+						icon: "pi pi-fw pi-users",
+						to: "/academics/students",
 					},
 					{
-						label: "Error",
-						icon: "pi pi-fw pi-times-circle",
-						to: "/auth/error",
+						label: "Majors",
+						icon: "pi pi-fw pi-image",
+						to: "/academics/majors",
 					},
-					// {
-					// 	label: "Access Denied",
-					// 	icon: "pi pi-fw pi-lock",
-					// 	to: "/auth/access",
-					// },
+					{
+						label: "Subjects",
+						icon: "pi pi-fw pi-folder-open",
+						to: "/academics/subjects",
+					},
+				],
+			},
+		],
+	},
+	{
+		label: "Settings",
+		icon: "pi pi-fw pi-beriefcase",
+		to: "/settings",
+		items: [
+			{
+				label: "User Managements",
+				icon: "pi pi-fw pi-cog",
+				items: [
+					{
+						label: "Users",
+						icon: "pi pi-fw pi-user",
+						to: "/settings/users",
+					},
+					{
+						label: "Role & Permissions",
+						icon: "pi pi-fw pi-shield",
+						to: "/settings/roles",
+					},
+				],
+			},
+		],
+	},
+	{
+		label: "Locations",
+		icon: "pi pi-fw pi-map-marker",
+		to: "/locations",
+		items: [
+			{
+				label: "Locations",
+				icon: "pi pi-fw pi-map-marker",
+				items: [
+					{
+						label: "Provinces",
+						icon: "pi pi-fw pi-globe",
+						to: "/locations/provinces",
+					},
+					{
+						label: "Regencies",
+						icon: "pi pi-fw pi-building",
+						to: "/locations/regencies",
+					},
+					{
+						label: "Districts",
+						icon: "pi pi-fw pi-map",
+						to: "/locations/districts",
+					},
+					{
+						label: "Villages",
+						icon: "pi pi-fw pi-building-columns",
+						to: "/locations/villages",
+					},
 				],
 			},
 		],

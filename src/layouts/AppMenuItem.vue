@@ -4,7 +4,6 @@ import { onBeforeMount, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-
 const { layoutState, setActiveMenuItem, onMenuToggle } = useLayout();
 
 const props = defineProps({
@@ -27,26 +26,52 @@ const props = defineProps({
 });
 
 const isActiveMenu = ref(false);
+const isExpanded = ref(false);
 const itemKey = ref(null);
+
+function checkActiveRoute(item) {
+	if (item.to === "/") {
+		return route.path === "/";
+	}
+	return route.path.startsWith(item.to);
+}
+
+function updateActiveMenu() {
+	if (props.item.items) {
+		const hasActiveChild = props.item.items.some((child) => {
+			if (child.items) {
+				return child.items.some((subChild) => {
+					if (subChild.to === "/") {
+						return route.path === "/";
+					}
+					return route.path.startsWith(subChild.to);
+				});
+			}
+			if (child.to === "/") {
+				return route.path === "/";
+			}
+			return route.path.startsWith(child.to);
+		});
+
+		isActiveMenu.value = hasActiveChild;
+		isExpanded.value = hasActiveChild;
+	} else {
+		isActiveMenu.value = checkActiveRoute(props.item);
+	}
+}
 
 onBeforeMount(() => {
 	itemKey.value = props.parentItemKey
 		? props.parentItemKey + "-" + props.index
 		: String(props.index);
 
-	const activeItem = layoutState.activeMenuItem;
-
-	isActiveMenu.value =
-		activeItem === itemKey.value || activeItem
-			? activeItem.startsWith(itemKey.value + "-")
-			: false;
+	updateActiveMenu();
 });
 
 watch(
-	() => layoutState.activeMenuItem,
-	(newVal) => {
-		isActiveMenu.value =
-			newVal === itemKey.value || newVal.startsWith(itemKey.value + "-");
+	() => route.path,
+	() => {
+		updateActiveMenu();
 	}
 );
 
@@ -67,6 +92,10 @@ function itemClick(event, item) {
 		item.command({ originalEvent: event, item: item });
 	}
 
+	if (item.items) {
+		isExpanded.value = !isExpanded.value;
+	}
+
 	const foundItemKey = item.items
 		? isActiveMenu.value
 			? props.parentItemKey
@@ -74,10 +103,6 @@ function itemClick(event, item) {
 		: itemKey.value;
 
 	setActiveMenuItem(foundItemKey);
-}
-
-function checkActiveRoute(item) {
-	return route.path === item.to;
 }
 </script>
 
@@ -106,7 +131,7 @@ function checkActiveRoute(item) {
 				v-if="item.items"
 			></i>
 		</a>
-		<router-link
+		<RouterLink
 			v-if="item.to && !item.items && item.visible !== false"
 			@click="itemClick($event, item, index)"
 			:class="[item.class, { 'active-route': checkActiveRoute(item) }]"
@@ -119,12 +144,12 @@ function checkActiveRoute(item) {
 				class="pi pi-fw pi-angle-down layout-submenu-toggler"
 				v-if="item.items"
 			></i>
-		</router-link>
+		</RouterLink>
 		<Transition
 			v-if="item.items && item.visible !== false"
 			name="layout-submenu"
 		>
-			<ul v-show="root ? true : isActiveMenu" class="layout-submenu">
+			<ul v-show="root ? true : isExpanded" class="layout-submenu">
 				<AppMenuItem
 					v-for="(child, i) in item.items"
 					:key="child"

@@ -2,13 +2,14 @@
 
 <template>
 	<div class="layout-footer">
-		SAKAI by
-		<a
-			href="https://primevue.org"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-primary font-bold hover:underline"
-			>PrimeVue</a
-		>
+		<RouterLink :to="{ name: 'dashboard' }" class="footer-link">
+			<img
+				src="@/assets/logo.svg"
+				alt="UT Sukabumi"
+				class="logo-mini"
+				style="height: 30px; width: auto"
+			/>
+			<span>Universitas Terbuka Sukabumi</span>
+		</RouterLink>
 	</div>
 </template>
