@@ -1,5 +1,6 @@
 <script setup>
 import { useBreadcrumb } from "@/composables/useBreadcrumb";
+import CardHeader from "@/components/CardHeader.vue";
 
 const { renderBreadcrumb } = useBreadcrumb("Create Province", {
 	label: "Provinces",
@@ -9,19 +10,11 @@ const { renderBreadcrumb } = useBreadcrumb("Create Province", {
 
 <template>
 	<Card>
-		<template #title>
-			<div class="flex items-center justify-between">
-				<span>Create New Province</span>
-				<Button
-					label="Back"
-					icon="pi pi-fw pi-chevron-left"
-					as="router-link"
-					size="small"
-					severity="danger"
-					raised
-					:to="{ name: 'provinces' }"
-				/>
-			</div>
+		<template #header>
+			<CardHeader
+				title="Create New Province"
+				:back-route="{ name: 'provinces' }"
+			/>
 		</template>
 		<template #subtitle>
 			<component :is="renderBreadcrumb" />

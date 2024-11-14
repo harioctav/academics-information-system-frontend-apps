@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { useBreadcrumb } from "@/composables/useBreadcrumb";
+import CardHeader from "@/components/CardHeader.vue";
 
-const breadcrumbHome = ref({ icon: "pi pi-home", to: "/", label: "Dashboard" });
-const breadcrumbItems = ref([{ label: "Roles", to: "/settings/roles" }]);
+const { renderBreadcrumb } = useBreadcrumb("Role & Permissions");
 </script>
 
 <template>
 	<Card>
-		<template #title>Roles</template>
+		<template #header>
+			<CardHeader title="Role & Permissions" />
+		</template>
 		<template #subtitle>
-			<div>
-				<Breadcrumb :home="breadcrumbHome" :model="breadcrumbItems" />
-			</div>
+			<component :is="renderBreadcrumb" />
 		</template>
 		<template #content>
 			<p class="mb-4">

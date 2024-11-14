@@ -1,23 +1,18 @@
 <script setup>
 import { useBreadcrumb } from "@/composables/useBreadcrumb";
+import CardHeader from "@/components/CardHeader.vue";
 
 const { renderBreadcrumb } = useBreadcrumb("Provinces");
 </script>
 
 <template>
 	<Card>
-		<template #title>
-			<div class="flex items-center justify-between">
-				<span>Provinces</span>
-				<Button
-					label="Create Province"
-					icon="pi pi-fw pi-plus"
-					as="router-link"
-					size="small"
-					raised
-					:to="{ name: 'provinces.create' }"
-				/>
-			</div>
+		<template #header>
+			<CardHeader
+				title="Provinces"
+				:create-route="{ name: 'provinces.create' }"
+				create-label="Create Province"
+			/>
 		</template>
 		<template #subtitle>
 			<component :is="renderBreadcrumb" />

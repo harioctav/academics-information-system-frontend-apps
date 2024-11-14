@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useBreadcrumb } from "@/composables/useBreadcrumb";
+import CardHeader from "@/components/CardHeader.vue";
 
 const { renderBreadcrumb } = useBreadcrumb("Dashboard");
 
@@ -20,7 +21,9 @@ const countries = ref([
 </script>
 <template>
 	<Card>
-		<template #title>Dashboard</template>
+		<template #header>
+			<CardHeader title="Dashboard" />
+		</template>
 		<template #subtitle>
 			<component :is="renderBreadcrumb" />
 		</template>

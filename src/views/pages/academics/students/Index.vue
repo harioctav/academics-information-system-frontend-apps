@@ -1,17 +1,17 @@
 <script setup>
-import { ref } from "vue";
+import { useBreadcrumb } from "@/composables/useBreadcrumb";
+import CardHeader from "@/components/CardHeader.vue";
 
-const breadcrumbHome = ref({ icon: "pi pi-home", to: "/", label: "Dashboard" });
-const breadcrumbItems = ref([{ label: "Students", to: "/academics/students" }]);
+const { renderBreadcrumb } = useBreadcrumb("Students");
 </script>
 
 <template>
 	<Card>
-		<template #title>Students</template>
+		<template #header>
+			<CardHeader title="Students" />
+		</template>
 		<template #subtitle>
-			<div>
-				<Breadcrumb :home="breadcrumbHome" :model="breadcrumbItems" />
-			</div>
+			<component :is="renderBreadcrumb" />
 		</template>
 		<template #content>
 			<p class="mb-4">
