@@ -1,19 +1,26 @@
 <script setup>
-import { ref } from "vue";
+import { useBreadcrumb } from "@/composables/useBreadcrumb";
 
-const breadcrumbHome = ref({ icon: "pi pi-home", to: "/", label: "Dashboard" });
-const breadcrumbItems = ref([
-	{ label: "Provinces", to: "/locations/provinces" },
-]);
+const { renderBreadcrumb } = useBreadcrumb("Provinces");
 </script>
 
 <template>
 	<Card>
-		<template #title>Provinces</template>
-		<template #subtitle>
-			<div>
-				<Breadcrumb :home="breadcrumbHome" :model="breadcrumbItems" />
+		<template #title>
+			<div class="flex items-center justify-between">
+				<span>Provinces</span>
+				<Button
+					label="Create Province"
+					icon="pi pi-fw pi-plus"
+					as="router-link"
+					size="small"
+					raised
+					:to="{ name: 'provinces.create' }"
+				/>
 			</div>
+		</template>
+		<template #subtitle>
+			<component :is="renderBreadcrumb" />
 		</template>
 		<template #content>
 			<p class="mb-4">

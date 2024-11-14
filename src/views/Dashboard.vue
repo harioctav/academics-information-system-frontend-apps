@@ -1,14 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import { useBreadcrumb } from "@/composables/useBreadcrumb";
 
-const breadcrumbHome = ref({ icon: "pi pi-home", to: "/", label: "Dashboard" });
-const breadcrumbItems = ref([
-	{ label: "Computer" },
-	{ label: "Notebook" },
-	{ label: "Accessories" },
-	{ label: "Backpacks" },
-	{ label: "Item" },
-]);
+const { renderBreadcrumb } = useBreadcrumb("Dashboard");
 
 const selectedCountry = ref();
 const countries = ref([
@@ -28,9 +22,7 @@ const countries = ref([
 	<Card>
 		<template #title>Dashboard</template>
 		<template #subtitle>
-			<div>
-				<Breadcrumb :home="breadcrumbHome" :model="breadcrumbItems" />
-			</div>
+			<component :is="renderBreadcrumb" />
 		</template>
 		<template #content>
 			<p class="mb-4">
