@@ -1,7 +1,9 @@
 <script setup>
 import { useLayout } from "@/composables/layout";
+import DarkModeToggle from "@/components/DarkModeToggle.vue";
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 
-const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
+const { onMenuToggle } = useLayout();
 </script>
 
 <template>
@@ -26,15 +28,8 @@ const { onMenuToggle, toggleDarkMode, isDarkTheme } = useLayout();
 
 		<div class="layout-topbar-actions">
 			<div class="layout-config-menu">
-				<button
-					type="button"
-					class="layout-topbar-action"
-					@click="toggleDarkMode"
-				>
-					<i
-						:class="['pi', { 'pi-moon': isDarkTheme, 'pi-sun': !isDarkTheme }]"
-					></i>
-				</button>
+				<DarkModeToggle />
+				<LanguageSwitcher />
 			</div>
 
 			<button

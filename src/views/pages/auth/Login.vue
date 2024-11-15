@@ -2,6 +2,9 @@
 import FloatingConfigurator from "@/components/FloatingConfigurator.vue";
 import Logo from "@/components/Logo.vue";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 
 const email = ref("");
 const password = ref("");
@@ -30,21 +33,27 @@ const checked = ref(false);
 					style="border-radius: 53px"
 				>
 					<div class="text-center mb-8">
-						<Logo />
+						<img
+							src="@/assets/logo.svg"
+							alt="UT Sukabumi"
+							class="w-16 shrink-0 mx-auto"
+							style="height: 55px; width: auto"
+						/>
+						<div class="mb-8">Universitas Terbuka Sukabumi</div>
 						<div
-							class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4"
+							class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-1"
 						>
-							Welcome to your Dashboard!
+							{{ t("page.auth.title") }}
 						</div>
-						<span class="text-muted-color font-medium"
-							>Sign in to continue</span
-						>
+						<span class="text-muted-color font-medium">{{
+							t("page.auth.subtitle")
+						}}</span>
 					</div>
 
 					<div>
 						<label
 							for="email1"
-							class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2"
+							class="block text-surface-900 dark:text-surface-0 font-medium mb-2"
 							>Email</label
 						>
 						<InputText
@@ -57,7 +66,7 @@ const checked = ref(false);
 
 						<label
 							for="password1"
-							class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2"
+							class="block text-surface-900 dark:text-surface-0 font-medium mb-2"
 							>Password</label
 						>
 						<Password

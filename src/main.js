@@ -6,6 +6,7 @@ import PrimeVue from "primevue/config";
 import Aura from "@primevue/themes/aura";
 import ConfirmationService from "primevue/confirmationservice";
 import ToastService from "primevue/toastservice";
+import i18n from "@/plugins/i18n";
 import "@/assets/styles.scss";
 import "@/assets/tailwind.css";
 import "@/assets/css/main.css";
@@ -25,6 +26,7 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(ConfirmationService);
+app.use(i18n);
 
 const { initTheme } = useLayout();
 
